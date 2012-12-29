@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}All Users{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% include 'sidebar.html' %}
+    <div class="span10">
+      <table class="table ">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Account Name</th>
+              <th>Full Name</th>
+              <th>Student Number</th>
+              <th>Email</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+          <!-- <?php if (isset($error)) : ?>
+                      <div class="alert alert-error">
+                        <?php echo "$error"; ?>
+                      </div>
+                    <?php elseif (isset($success)) : ?>
+                      <div class="alert alert-success">
+                        <?php echo "$success"; ?>
+                      </div>
+                    <?php endif; ?> -->
+
+          {% for user in users %}
+              <tr>
+              <td><a href="edit.php?user=<?php echo $user['uid'][0]?>" class="btn btn-mini">Edit</a></td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.displayname }}</td>
+                  <td>{{ user.studentnumber }}</td>
+                  <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                  <td>{{ user.status }}</td>
+              </tr>
+           {% endfor %}
+          </tbody>
+        </table> 
+    </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+#TextMate temp files
+._*
+
+vendor/*
+composer.phar
+PHPUnit test coverage report
+report

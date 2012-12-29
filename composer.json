@@ -1,0 +1,7 @@
+{
+    "require": {
+        "twig/twig": "1.*",
+	"shuber/curl": "dev-master",
+	"slim/slim": "2.2.0"
+    }
+}
