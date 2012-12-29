@@ -15,7 +15,7 @@
   
   $loader = new Twig_Loader_Filesystem('views');
   $twig = new Twig_Environment($loader, array(
-      // 'cache' => 'cache',
+      // 'cache' => 'views/cache',
   ));
   $twig->addFilter('md5', new Twig_Filter_Function('md5'));
 
@@ -33,6 +33,7 @@
     LoginController::displayRegister($twig);
   });
   $app->post('/register', function() use ($app, $twig) {
+    //TODO implement registration...
     LoginController::displayPostRegister($twig);
   });
   
@@ -55,12 +56,17 @@
     DashboardController::handleManageKeys($app, $twig);
   });
   
+  
   //Admin routes
   $app->get('/admin/search', function() use ($app, $twig) {
     AdminController::handleSearch($app, $twig);
   });
   $app->get('/admin/listusers', function() use ($app, $twig) {
     AdminController::listUsers($app, $twig);
+  });
+  
+  $app->get('/admin/edit/:username', function($username) use ($app, $twig) {
+    AdminController::editUser($app, $twig, $username);
   });
   
   $app->run();

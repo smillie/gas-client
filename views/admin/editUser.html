@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %}Edit User: {{ user.username }}{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      {% include 'sidebar.html' %}
+      <div class="span10">
+        <div class="row">
+          <div class="span5">
+            <form id="form" class="form-horizontal" action="/admin/edit/{{ user.username }}" method="post">
+              <fieldset>
+                <legend>Edit User - {{ user.username }}</legend>
+                <div class="control-group">
+                  {% if error %}
+                    <div class="alert alert-error">
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      <strong>Error:</strong> {{ error }}
+                    </div>
+                  {% endif %}
+                  {% if success %}
+                  <div class="alert alert-success">
+                      {{ success }}
+                  </div>
+                  {% endif %}
+                  <label class="control-label" for="username">Account Name</label>
+                  <div class="controls">
+                    <span class="input-xlarge uneditable-input">{{ user.username }}</span>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="displayname">Full Name</label>
+                  <div class="controls">
+                    <input type="text" class="input-xlarge required" name="displayname" id="displayname" value="{{ user.displayname }}">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="studentnumber">Student Number</label>
+                  <div class="controls">
+                  <input type="text" class="input-xlarge digits" name="studentnumber" id="studentnumber" value="{{ user.studentnumber }}">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="email">Email</label>
+                  <div class="controls">
+                  <input type="text" class="input-xlarge required email" name="email" id="email" value="{{ user.email }}">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="loginshell">Login Shell</label>
+                    <div class="controls">
+                      <select id="loginshell" name="loginshell" class="required">
+                        <option {% if user.loginshell == '/bin/bash' %} selected='selected' {% endif %} >/bin/bash</option>
+                        <option {% if user.loginshell == '/bin/tcsh' %} selected='selected' {% endif %} >/bin/tcsh</option>
+                        <option {% if user.loginshell == '/bin/zsh' %} selected='selected' {% endif %} >/bin/zsh</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                      <label class="control-label">Groups</label>
+                      <div class="controls">
+                          <span class="uneditable-input input-xlarge">
+                            {% for group in user.groups %}
+                              <a href="/admin/groups/{{ group }}">{{ group }}</a>
+                            {% endfor %}
+                          </span>
+                      </div>
+                  </div>
+            
+                  <div class="control-group">
+                      <label class="control-label" for="status">Account Status</label>
+                      <div class="controls">
+                          <span class="input-xlarge uneditable-input">{{ user.status }}</span>
+                      </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">Expiry</label>
+                  <div class="controls">
+                      <input type="text" class="input-xlarge required dateISO" name="expiry" id="expiry" value="{{ user.expiry }}">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">Paid?</label>
+                  <div class="controls">
+                    <label class="radio inline">
+                      <input type="radio" name="hasPaid" id="optionsRadios1" value="yes" {{ user.paid == true? "checked": null }}> Yes
+                    </label>
+                    <label class="radio inline">
+                    <input type="radio" name="hasPaid" id="optionsRadios2" value="no" {{ user.paid == false? "checked": null }} ?> No
+                    </label>
+                  </div>
+                </div>
+              <div class="control-group">
+                  <label class="control-label" for="notes">Notes</label>
+                  <div class="controls">
+                  <textarea class="input-xlarge" id="notes" name="notes" rows="3">{{ user.notes }}</textarea>
+                  </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="notes">Password</label>
+                  <div class="controls">
+                  <button name="resetpassword" type="submit" class="btn btn-small" >Reset Password</button>
+                  </div>
+              </div>
+              <div class="form-actions">
+                  <div id="deleteConfromModal" class="modal hide ">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h3>Are you sure?</h3>
+                              </div>
+                              <div class="modal-body">
+                              <p>This will immediately delete {{ user.displayname }}'s account from the LDAP directory.</p>
+                              <p><strong>Note:</strong> Their home directory will not be deleted.</p>
+                              </div>
+                              <div class="modal-footer">
+                                <a href="#" class="btn" data-dismiss="modal" >Cancel</a>
+                                <button name="delete" type="submit" class="btn btn-danger" ><i class="icon-trash icon-white"></i> Confirm Delete</button>
+                              </div>
+                            </div>
+                            <a data-toggle="modal" href="#deleteConfromModal" class="btn btn-danger"><i class="icon-trash icon-white"></i> Delete</a>
+                  <button type="submit" class="btn btn-primary" name="update" >Update Details</button>
+                </div>
+              </fieldset>
+            </form>
+          </div><!--/span-->
+        </div><!--/row-->
+      </div><!--/span-->
+{% endblock %}

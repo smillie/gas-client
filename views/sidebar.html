@@ -1,7 +1,7 @@
 <div class="span2">
   <div class="well sidebar-nav">
     <ul class="nav nav-list">
-      <li class="nav-header"><img src="http://www.gravatar.com/avatar/{{ currentuser.email|md5 }}?s=20&d=mm" /> {{ currentuser.firstname }}</li>
+      <li class="nav-header"><img src="http://www.gravatar.com/avatar/{{ currentuser.email|md5 }}?s=20&d=mm" /> {{ currentuser.username }}</li>
       <li><a href="/dashboard"><i class="icon-user"></i> Details</a></li>
       <li><a href="/changepassword"><i class="icon-lock"></i> Change Password</a></li>
       <li><a href="/managekeys"><i class="icon-file"></i> SSH Keys</a></li>
@@ -9,7 +9,7 @@
       {% if 'gsag' in currentuser.groups %}
       <li class="nav-header">User Administration</li>
       <li><a href="/admin/adduser"><i class="icon-plus"></i> Add User</a></li>
-      <li><a href="/admin/edituser"><i class="icon-pencil"></i> Edit User</a></li>
+      <li><a href="/admin/edit"><i class="icon-pencil"></i> Edit User</a></li>
       <li><a href="/admin/listusers"><i class="icon-th-list"></i> List Users</a></li>
       <li><a href="/admin/groups"><i class=" icon-tags"></i> Groups</a></li>
     

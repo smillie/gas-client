@@ -29,6 +29,15 @@ class AdminController
           'users'=>User::search($_GET['query']),
           ));
   }
+  
+   static public function editUser($app, $twig, $username) {
+     //TODO check user exists...
+     echo $twig->render('admin/editUser.html', 
+       array(
+         'currentuser'=>User::get($_SESSION['username']),
+         'user'=>User::get($username),
+         ));
+     }
 
 }
 ?>
