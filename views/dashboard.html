@@ -7,19 +7,25 @@
     <div class="span10">
       <div class="row">
         <div class="span5">
-          <form class="form-horizontal" action="details.php" method="post" id="form">
+          <form class="form-horizontal" action="/dashboard" method="post" id="form">
             <fieldset>
               <legend>Account Details</legend>
               <div class="control-group">
+                {% if success %}
+                <div class="alert alert-success">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ success }}
+                </div>
+                {% endif %}
                 <label class="control-label" for="username">Account Name</label>
                 <div class="controls">
                   <span class="input-xlarge uneditable-input">{{ currentuser.username }}</span>
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="fullname">Full Name</label>
+                <label class="control-label" for="displayname">Full Name</label>
                 <div class="controls">
-                  <input type="text" class="input-xlarge required" name="fullname" id="cn" value="{{ currentuser.displayname }}">
+                  <input type="text" class="input-xlarge required" name="displayname" id="displayname" value="{{ currentuser.displayname }}">
                 </div>
               </div>
               <div class="control-group">

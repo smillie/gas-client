@@ -22,10 +22,29 @@ class DashboardController
       $app->redirect('/');
     }
     
+    $user = User::get($_SESSION['username']);
+    $user->displayname = $_POST["displayname"];
+    $user->studentnumber = $_POST["studentnumber"];
+    $user->email = $_POST["email"];
+    switch ($_POST['loginshell']) {
+      case "/bin/bash":
+        $user->loginshell = "/bin/bash";
+        break;
+      case "/bin/tcsh":
+        $user->loginshell = "/bin/tcsh";
+        break;
+      case "/bin/zsh":
+        $user->loginshell = "/bin/zsh";
+        break;
+    }
+
+    $user->save();
     echo $twig->render('dashboard.html', 
         array(
           'currentuser'=>User::get($_SESSION['username']),
+          'success'=>"Details successfully updated.",
           ));
+    
     
   }
   
