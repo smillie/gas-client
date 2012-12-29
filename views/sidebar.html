@@ -1,12 +1,12 @@
 <div class="span2">
   <div class="well sidebar-nav">
     <ul class="nav nav-list">
-      <li class="nav-header">{{ currentuser.firstname }}</li>
+      <li class="nav-header"><img src="http://www.gravatar.com/avatar/{{ currentuser.email|md5 }}?s=20&d=mm" /> {{ currentuser.firstname }}</li>
       <li><a href="/dashboard"><i class="icon-user"></i> Details</a></li>
       <li><a href="/changepassword"><i class="icon-lock"></i> Change Password</a></li>
       <li><a href="/managekeys"><i class="icon-file"></i> SSH Keys</a></li>
       
-      {% if 'gsag' in currentuser.groups %}
+      {% if 'gsang' in currentuser.groups %}
       <li class="nav-header">User Administration</li>
       <li><a href="/admin/adduser"><i class="icon-plus"></i> Add User</a></li>
       <li><a href="/admin/edituser"><i class="icon-pencil"></i> Edit User</a></li>
