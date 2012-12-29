@@ -41,6 +41,18 @@
     DashboardController::displayDetails($app, $twig);
   });
   
+  $app->get('/changepassword', function() use ($app, $twig) {
+    DashboardController::displayPasswordChange($app, $twig);
+  });
+  
+  $app->post('/changepassword', function() use ($app, $twig) {
+    DashboardController::handlePasswordChange($app, $twig);
+  });
+  
+  $app->get('/managekeys', function() use ($app, $twig) {
+    DashboardController::displayManageKeys($app, $twig);
+  });
+  
   $app->run();
   
 
