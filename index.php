@@ -9,6 +9,7 @@
   require_once 'model/NewMember.php';
   require_once 'controllers/DashboardController.php';
   require_once 'controllers/LoginController.php';
+  require_once 'controllers/AdminController.php';
   
   $app = new \Slim\Slim();
   
@@ -52,6 +53,14 @@
   });
   $app->post('/managekeys', function() use ($app, $twig) {
     DashboardController::handleManageKeys($app, $twig);
+  });
+  
+  //Admin routes
+  $app->get('/admin/search', function() use ($app, $twig) {
+    AdminController::handleSearch($app, $twig);
+  });
+  $app->get('/admin/listusers', function() use ($app, $twig) {
+    AdminController::listUsers($app, $twig);
   });
   
   $app->run();
