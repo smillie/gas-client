@@ -92,14 +92,6 @@ class DashboardController
             ));
     }
     
-    echo "wibble";
-    // echo $twig->render('changePassword.html', 
-    //     array(
-    //       'currentuser'=>User::get($_SESSION['username']),
-    //       'users'=>User::getAll(),
-    //       'error'=>'Username or password is incorrect.',
-    //       ));
-    
   }
   
   static public function displayManageKeys($app, $twig) {
@@ -110,7 +102,34 @@ class DashboardController
     echo $twig->render('updateSSHKeys.html', 
         array(
           'currentuser'=>User::get($_SESSION['username']),
-          'users'=>User::getAll(),
+          ));
+    
+  }
+  
+  static public function handleManageKeys($app, $twig) {
+    if (!isset($_SESSION['username'])) {
+      $app->redirect('/');
+    }
+    
+    $user = User::get($_SESSION['username']);
+    
+    if (isset($_POST['delete'])) {
+        $removeindex = $_POST['delete'];
+        unset($user->sshkeys[$removeindex]);
+        $user->sshkeys = array_values($user->sshkeys);
+    } else if (isset($_FILES['uploadedkey'])) {
+        if ($_FILES['uploadedkey']['tmp_name'] != "") {
+          $newkey = file_get_contents($_FILES['uploadedkey']['tmp_name']);
+          $user->sshkeys[] = $newkey;
+        }
+    }
+    
+    $user->save();
+    
+    echo $twig->render('updateSSHKeys.html', 
+        array(
+          'currentuser'=>User::get($_SESSION['username']),
+          
           ));
     
   }

@@ -7,21 +7,20 @@
     <div class="span10">
       <div class="row">
         <div class="span5">
-          <form enctype="multipart/form-data" class="form-horizontal" action="sshkeys.php" method="post">
+          <form enctype="multipart/form-data" class="form-horizontal" action="managekeys" method="post">
             <fieldset>
               <legend>SSH Keys</legend>
-                <!-- <?php if (isset($success)) : ?>
-                <div class="control-group">
-                  <div class="alert alert-success">
-                    <?php echo "$success"; ?>
-                  </div>
+                {% if success %}
+                <div class="alert alert-success">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ success }}
                 </div>
-                <?php endif; ?> -->
+                {% endif %}
 
 
                 {% for key in currentuser.sshkeys %}
                 <div class="control-group">
-                    <label class="control-label" for="uid"><button name="delete" value=""type="submit" class="btn btn-danger" ><i class="icon-trash icon-white"></i> Delete</button></label>
+                    <label class="control-label" for="key"><button name="delete" value="{{ loop.index0 }}" type="submit" class="btn btn-danger" ><i class="icon-trash icon-white"></i> Delete</button></label>
                     <div class="controls">
                         <textarea class="input-xlarge" id="textarea" rows="7" disabled="disabled">{{ key }}</textarea>
                     </div>
