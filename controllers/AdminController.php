@@ -6,6 +6,17 @@
 class AdminController
 {
 
+  static public function addUser($app, $twig) {
+    if (!isset($_SESSION['username'])) {
+      $app->redirect('/');
+    }
+    
+    echo $twig->render('admin/adduser.html', 
+        array(
+          'currentuser'=>User::get($_SESSION['username']),
+          ));
+  }
+
   static public function listUsers($app, $twig) {
     if (!isset($_SESSION['username'])) {
       $app->redirect('/');

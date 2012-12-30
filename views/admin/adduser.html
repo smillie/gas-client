@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Add User{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      {% include 'sidebar.html' %}
+      <div class="span10">
+        <div class="row">
+          <div class="span5">
+            <form class="form-horizontal" id="form" action="/admin/adduser" method="post">
+              <fieldset>
+                <legend>Add User</legend>
+                <div class="control-group">
+                  {% if error %}
+                    <div class="alert alert-error">
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      <strong>Error:</strong> {{ error }}
+                    </div>
+                  {% endif %}
+                  {% if success %}
+                  <div class="alert alert-success">
+                      {{ success }}
+                  </div>
+                  {% endif %}
+                  <label class="control-label" for="firstname">First Name</label>
+                  <div class="controls">
+                    <input type="text" class="input-xlarge required" name="firstname" id="firstname">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="lastname">Last Name</label>
+                  <div class="controls">
+                    <input type="text" class="input-xlarge required" name="lastname" id="lastname">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="uid">Account Name</label>
+                  <div class="controls">
+                    <input type="text" class="input-xlarge required" name="uid" id="uid" minlength="3">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="studentNumber">Student Number</label>
+                  <div class="controls">
+                  <input type="text" class="input-xlarge digits" name="studentnumber" id="studentnumber" >
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="email">Email</label>
+                  <div class="controls">
+                  <input type="text" class="input-xlarge required email" name="email" id="email" >
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">Add User</button>
+                </div>
+              </fieldset>
+            </form>
+          </div><!--/span-->
+        </div><!--/row-->
+      </div><!--/span-->
+{% endblock %}
