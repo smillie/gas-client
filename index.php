@@ -35,7 +35,7 @@
   });
   $app->post('/register', function() use ($app, $twig) {
     //TODO implement registration...
-    LoginController::displayPostRegister($twig);
+    LoginController::handleRegister($twig);
   });
   
   $app->get('/dashboard', function() use ($app, $twig) {

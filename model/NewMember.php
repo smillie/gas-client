@@ -9,6 +9,7 @@
 class NewMember implements Persistable
 {
   
+  public $id;
   public $firstname;
   public $lastname;
   public $username;
@@ -45,15 +46,64 @@ class NewMember implements Persistable
   }
   
   static public function getAll() {
+    global $conf;
     
+    $user = $_SESSION['username'];
+    $password = $_SESSION['password'];
+    $curl = new Curl;
+    
+    $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/newmembers";
+    $response = $curl->get($url, $vars = array());
+    $result = json_decode($response, true);
+    
+    $allNew = array();
+    
+    foreach ($result as $member) {
+      $allNew[] = self::init($member);
+    }
+    
+    return $allNew;
   }
   
   public function delete() {
-    
+    global $conf;
+
+    $user = $_SESSION['username'];
+    $password = $_SESSION['password'];
+    $curl = new Curl;
+
+    $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/newmembers/" . $this->id;
+    $response = $curl->delete($url, $vars = array());
+
+    if ($response->headers['Status'] != "200 OK") {
+      return false;
+    } else {
+      return json_decode($response, true);
+    }
   }
   
   public function save() {
     //only to create a new member - doesnt support updates atm...
+    global $conf;
+    
+    if (self::get($this->id) == null) {   
+      $details = get_object_vars($this);
+      
+      $user = $_SESSION['username'];
+      $password = $_SESSION['password'];
+      $curl = new Curl;
+
+      $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/newmembers";
+      $response = $curl->post($url, json_encode($details));
+
+      if ($response->headers['Status'] != "200 OK") {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
   }
   
   public function activate(){

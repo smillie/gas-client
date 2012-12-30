@@ -43,7 +43,23 @@ class Group implements Persistable
   }
   
   static public function getAll() {
+    global $conf;
     
+    $user = $_SESSION['username'];
+    $password = $_SESSION['password'];
+    $curl = new Curl;
+    
+    $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/groups";
+    $response = $curl->get($url, $vars = array());
+    $result = json_decode($response, true);
+    
+    $allGroups = array();
+    
+    foreach ($result as $group) {
+      $allGroups[] = self::init($group);
+    }
+    
+    return $allGroups;
   }
   
   public function delete() {
