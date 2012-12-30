@@ -59,6 +59,7 @@
   
   
   //Admin routes
+  //TODO restrict to gsag members...
   $app->get('/admin/search', function() use ($app, $twig) {
     AdminController::handleSearch($app, $twig);
   });

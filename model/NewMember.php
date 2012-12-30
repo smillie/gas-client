@@ -89,8 +89,6 @@ class NewMember implements Persistable
     if ($this->id == null) {   
       $details = get_object_vars($this);
       
-      // $user = $_SESSION['username'];
-      // $password = $_SESSION['password'];
       $curl = new Curl;
 
       $url = $conf['api_protocol'] . "://".$conf['api_url'] ."/newmembers";
@@ -107,7 +105,20 @@ class NewMember implements Persistable
   }
   
   public function activate(){
-    
+    global $conf;
+
+    $user = $_SESSION['username'];
+    $password = $_SESSION['password'];
+    $curl = new Curl;
+
+    $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/newmembers/" . $this->id;
+    $response = $curl->post($url, $vars = array());
+
+    if ($response->headers['Status'] != "200 OK") {
+      return false;
+    } else {
+      return json_decode($response, true);
+    }
   }
   
 }
