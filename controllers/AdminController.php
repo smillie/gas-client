@@ -151,6 +151,18 @@ class AdminController
           'user'=>User::get($username),
           )); 
   }
+  
+  static public function displayNewUsers($app, $twig) {
+    if (!isset($_SESSION['username'])) {
+      $app->redirect('/');
+    }
+    
+    echo $twig->render('admin/newusers.html', 
+        array(
+          'currentuser'=>User::get($_SESSION['username']),
+          'users'=>NewMember::getAll(),
+          ));
+  }
 
 }
 ?>
