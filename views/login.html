@@ -2,33 +2,34 @@
 {% block title %}Login{% endblock %}
 {% block content %}
     <div class="container">
-    <div class="hero-unit span6 offset2" style="text-align: center">
-      <h1 style="font-size:40px;">GeekSoc Account System</h1>
-      <form class="form-horizontal" action="/auth/login" method="post">
-        <fieldset>
-          <legend>Login</legend>
-          <div class="control-group">
-            {% if error %}
-                <div class="alert alert-error">
-                  <strong>Error:</strong> {{ error }}
+      <div class="row">
+        <div class="hero-unit span6 offset2" style="text-align: center">
+          <h1 style="font-size:40px;">GeekSoc Account System</h1>
+          <form class="form-horizontal" action="/auth/login" method="post">
+            <fieldset>
+              <legend>Login</legend>
+              <div class="control-group">
+                {% if error %}
+                    <div class="alert alert-error">
+                      <strong>Error:</strong> {{ error }}
+                    </div>
+                {% endif %}
+                <label class="control-label" for="uid">Username:</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge" id="username" name="username">
                 </div>
-            {% endif %}
-            <label class="control-label" for="uid">Username:</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="username" name="username">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="password">Password:</label>
-            <div class="controls">
-            <input type="password" class="input-xlarge" id="password" name="password">
-            </div>
-          </div>
-          <div class="">
-             <a href="/register" class="btn">Join GeekSoc</a>
-            <button type="submit" name="login" class="btn btn-primary">Login</button>
-          </div>
-        </fieldset>
-      </form>
-    </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="password">Password:</label>
+                <div class="controls">
+                <input type="password" class="input-xlarge" id="password" name="password">
+                </div>
+              </div>
+              <div class="">
+                 <a href="/register" class="btn">Join GeekSoc</a>
+                <button type="submit" name="login" class="btn btn-primary">Login</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
 {% endblock %}
