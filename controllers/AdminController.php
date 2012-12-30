@@ -17,6 +17,34 @@ class AdminController
           ));
   }
 
+
+  static public function handleAddUser($app, $twig) {
+    if (!isset($_SESSION['username'])) {
+      $app->redirect('/');
+    }
+    
+    if (User::get($_POST['username']) == NULL) {
+    
+      $user = new User;
+      $user->displayname = $_POST['firstname']." ".$_POST['lastname'];
+      $user->firstname = $_POST['firstname'];
+      $user->lastname = $_POST['lastname'];
+      $user->username = $_POST['username'];
+      $user->studentnumber = $_POST['studentnumber'];
+      $user->email = $_POST['email'];
+    
+      $user->save();
+    
+      $app->redirect('/admin/edit/'.$user->username);
+    } else {
+      echo $twig->render('admin/adduser.html', 
+          array(
+            'currentuser'=>User::get($_SESSION['username']),
+            'error'=>'A user with the username '.$_POST['username'].' already exists.',
+            ));
+    }
+  }
+
   static public function listUsers($app, $twig) {
     if (!isset($_SESSION['username'])) {
       $app->redirect('/');
