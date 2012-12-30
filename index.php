@@ -64,7 +64,9 @@
   $app->get('/admin/listusers', function() use ($app, $twig) {
     AdminController::listUsers($app, $twig);
   });
-  
+  $app->get('/admin/edit', function() use ($app, $twig) {
+    AdminController::displaySearch($app, $twig);
+  });
   $app->get('/admin/edit/:username', function($username) use ($app, $twig) {
     AdminController::editUser($app, $twig, $username);
   });

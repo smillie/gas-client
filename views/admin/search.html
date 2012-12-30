@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Edit User: {{ user.username }}{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      {% include 'sidebar.html' %}
+      <div class="span10">
+        <div class="row">
+          <div class="span5">
+            <fieldset>
+               <legend>Search Users</legend>
+               <div class="control-group">
+              <form class="well form-search" action="/admin/search" method='GET'>
+                  <input type="text" name="query" class="input-xlarge search-query">
+                  <button type="submit" class="btn">Search</button>
+              </form>
+              </div>
+          </div><!--/span-->
+        </div><!--/row-->
+      </div><!--/span-->
+{% endblock %}

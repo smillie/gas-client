@@ -18,6 +18,17 @@ class AdminController
           ));
   }
   
+  static public function displaySearch($app, $twig) {
+    if (!isset($_SESSION['username'])) {
+      $app->redirect('/');
+    }
+    
+    echo $twig->render('admin/search.html', 
+        array(
+          'currentuser'=>User::get($_SESSION['username']),
+          ));
+  }
+  
   static public function handleSearch($app, $twig) {
     if (!isset($_SESSION['username'])) {
       $app->redirect('/');
