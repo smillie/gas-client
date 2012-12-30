@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Groups{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% include 'sidebar.html' %}
+    <div class="span6">
+      <table class="table ">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Group Name</th>
+            <th>GID</th>
+            <th>Members</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+         {% if error %}
+            <div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Error:</strong> {{ error }}
+            </div>
+          {% endif %}
+          {% if success %}
+          <div class="alert alert-success">
+              {{ success }}
+          </div>
+          {% endif %}
+
+        {% for group in groups %}
+            <tr>
+                <td><a href="/admin/group/{{ group.name }}" class="btn btn-mini">Edit</a></td>
+                <td>{{ group.name }}</td>
+                <td>{{ group.gidnumber }}</td>
+                <td>{{ group.members|length }}</td>
+
+                <div id="deleteModal{{ group.name }}" class="modal hide ">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3>Are you sure?</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>This will immediately delete the {{ group.name }} group from the LDAP directory.</p>
+                        <p><strong>Note:</strong> Users in the group will not be deleted.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <form action="/admin/groups/{{ group.name }}" method="POST">
+                        <a href="#" class="btn" data-dismiss="modal" >Cancel</a>
+                        <button type="submit" class="btn btn-danger" value="{{ user.id }}" name="delete">Confirm Delete</button>
+                        </form>
+                    </div>
+                </div>
+
+                <td><a data-toggle="modal" href="#deleteModal{{ group.name }}" class="btn btn-mini btn-danger">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+      </table>    
+      <form class="well form-inline" action="groups.php" method="post" id="form">
+          <input type="text" class="input-xlarge required" placeholder="Group Name" name="newgroup">
+          <button type="submit" class="btn">Add Group</button>
+      </form>
+    </div>
+{% endblock %}

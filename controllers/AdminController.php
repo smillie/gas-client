@@ -17,7 +17,6 @@ class AdminController
           ));
   }
 
-
   static public function handleAddUser($app, $twig) {
     if (!isset($_SESSION['username'])) {
       $app->redirect('/');
@@ -94,7 +93,7 @@ class AdminController
          'currentuser'=>User::get($_SESSION['username']),
          'user'=>User::get($username),
          ));
-     }
+  }
      
   static public function handleEditUser($app, $twig, $username) {
     
@@ -196,6 +195,18 @@ class AdminController
           'success'=>$successmessage,
           'error'=>$errormessage,
           'users'=>NewMember::getAll(),
+          ));
+  }
+
+  static public function listGroups($app, $twig) {
+    if (!isset($_SESSION['username'])) {
+      $app->redirect('/');
+    }
+    
+    echo $twig->render('admin/listgroups.html', 
+        array(
+          'currentuser'=>User::get($_SESSION['username']),
+          'groups'=>Group::getAll(),
           ));
   }
 

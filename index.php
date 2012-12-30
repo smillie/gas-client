@@ -34,7 +34,6 @@
     LoginController::displayRegister($twig);
   });
   $app->post('/register', function() use ($app, $twig) {
-    //TODO implement registration...
     LoginController::handleRegister($twig);
   });
   
@@ -60,6 +59,7 @@
   
   //Admin routes
   //TODO restrict to gsag members...
+  //TODO CSV export?
   $app->get('/admin/search', function() use ($app, $twig) {
     AdminController::handleSearch($app, $twig);
   });
@@ -87,6 +87,10 @@
   });
   $app->post('/admin/newusers', function() use ($app, $twig) {
     AdminController::handleNewUsers($app, $twig);
+  });
+  
+  $app->get('/admin/groups', function() use ($app, $twig) {
+    AdminController::listGroups($app, $twig);
   });
   
   $app->run();
