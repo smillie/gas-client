@@ -5,3 +5,5 @@ vendor/*
 composer.phar
 PHPUnit test coverage report
 report
+
+views/cache/*
