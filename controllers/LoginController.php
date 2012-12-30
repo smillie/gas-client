@@ -15,9 +15,14 @@ class LoginController
   
   static public function displayRegister($twig) {    
     echo $twig->render('register.html', 
+        array());
+  }
+  
+  static public function handleRegister($twig) {    
+    echo $twig->render('postRegister.html', 
         array(
-          // 'error'=>'Username or password is incorrect.',
-          ));
+          'name'=>$_POST['firstname'],
+        ));
   }
   
   static public function logout($app) {   

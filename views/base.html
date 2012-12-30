@@ -44,12 +44,6 @@
           </a>
           <a class="brand" href="/">GeekSoc Account System</a>
           <div class="nav-collapse">
-            <!-- <ul class="nav">
-              <li class="active"><a href="index.php">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul> -->
-            <?php if(isset($_SESSION['user'])) : ?>
             {% if currentuser %}
                 <div class="btn-group pull-right">
                   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -57,8 +51,6 @@
                     <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
-                    <!-- <li><a href="#">Profile</a></li>
-                    <li class="divider"></li> -->
                     <li><a href="/auth/logout">Sign Out</a></li>
                   </ul>
                 </div>
