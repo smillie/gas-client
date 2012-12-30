@@ -5,6 +5,7 @@
   <div class="row">
     {% include 'sidebar.html' %}
     <div class="span10">
+      {% if users|length > 0 %}
       <table class="table ">
       <thead>
         <tr>
@@ -25,23 +26,27 @@
         {% endif %}
         {% if success %}
         <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
             {{ success }}
         </div>
         {% endif %}
     
         <form action="/admin/newusers" method="POST">
-          {% for user in users %}
-              <tr>
-                <td><button type="submit" class="btn btn-mini" value="{{ user.id }}" name="create">Create</button></td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.firstname }} {{ user.lastname }}</td>
-                <td>{{ user.studentnumber }}</td>
-                <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
-                <td><button type="submit" class="btn btn-mini btn-danger" value="{{ user.id }}" name="delete">Delete</button></td>
-              </tr>
-          {% endfor %}
+            {% for user in users %}
+                <tr>
+                  <td><button type="submit" class="btn btn-mini" value="{{ user.id }}" name="create">Create</button></td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.firstname }} {{ user.lastname }}</td>
+                  <td>{{ user.studentnumber }}</td>
+                  <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                  <td><button type="submit" class="btn btn-mini btn-danger" value="{{ user.id }}" name="delete">Delete</button></td>
+                </tr>
+            {% endfor %}
         </form>
       </tbody>
     </table>
+    {% else %}
+    <p>There are no new members to approve - get recruiting!</p>
+    {% endif %}
     </div>
 {% endblock %}

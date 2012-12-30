@@ -170,17 +170,31 @@ class AdminController
     }
 
     $successmessage = "";
+    $errormessage = "";
     
     if (isset($_POST['delete'])) {
       $user = NewMember::get($_POST['delete']);
-      $user->delete();
-      $successmessage = "$user->firstname $user->lastname has been removed from the approval queue.";
-    }
+      if ($user != null) {
+        $user->delete();
+        $successmessage = "$user->firstname $user->lastname has been removed from the approval queue.";
+      } else {
+          $errormessage = "Cannot delete - no such account exists.";
+      }
+    } elseif (isset($_POST['create'])) {
+        $user = NewMember::get($_POST['create']);
+        if ($user != NULL && $user->activate() != false) {
+          $successmessage = "An account has been created for $user->firstname $user->lastname.";
+        } else {
+          $errormessage = "There was a problem creating the account - the username may already be taken.";
+        }
+      }
+    
     
     echo $twig->render('admin/newusers.html', 
         array(
           'currentuser'=>User::get($_SESSION['username']),
           'success'=>$successmessage,
+          'error'=>$errormessage,
           'users'=>NewMember::getAll(),
           ));
   }

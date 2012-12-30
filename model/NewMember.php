@@ -117,7 +117,7 @@ class NewMember implements Persistable
     if ($response->headers['Status'] != "200 OK") {
       return false;
     } else {
-      return json_decode($response, true);
+      return true;
     }
   }
   
