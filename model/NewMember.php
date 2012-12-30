@@ -86,14 +86,14 @@ class NewMember implements Persistable
     //only to create a new member - doesnt support updates atm...
     global $conf;
     
-    if (self::get($this->id) == null) {   
+    if ($this->id == null) {   
       $details = get_object_vars($this);
       
-      $user = $_SESSION['username'];
-      $password = $_SESSION['password'];
+      // $user = $_SESSION['username'];
+      // $password = $_SESSION['password'];
       $curl = new Curl;
 
-      $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/newmembers";
+      $url = $conf['api_protocol'] . "://".$conf['api_url'] ."/newmembers";
       $response = $curl->post($url, json_encode($details));
 
       if ($response->headers['Status'] != "200 OK") {

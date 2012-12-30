@@ -18,7 +18,16 @@ class LoginController
         array());
   }
   
-  static public function handleRegister($twig) {    
+  static public function handleRegister($twig) { 
+    
+    $newmember = new NewMember;
+    $newmember->firstname = $_POST['firstname'];
+    $newmember->lastname = $_POST['lastname'];
+    $newmember->studentnumber = $_POST['studentnumber'];
+    $newmember->email = $_POST['email'];
+    
+    $newmember->save();
+       
     echo $twig->render('postRegister.html', 
         array(
           'name'=>$_POST['firstname'],

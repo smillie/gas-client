@@ -81,6 +81,10 @@
     AdminController::handleAddUser($app, $twig);
   });
   
+  $app->get('/admin/newusers', function() use ($app, $twig) {
+    AdminController::displayNewUsers($app, $twig);
+  });
+  
   $app->run();
   
 ?>
