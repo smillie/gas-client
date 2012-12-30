@@ -68,6 +68,9 @@
   $app->get('/admin/edit/:username', function($username) use ($app, $twig) {
     AdminController::editUser($app, $twig, $username);
   });
+  $app->post('/admin/edit/:username', function($username) use ($app, $twig) {
+    AdminController::handleEditUser($app, $twig, $username);
+  });
   
   $app->run();
   
