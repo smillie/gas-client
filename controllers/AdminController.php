@@ -163,6 +163,27 @@ class AdminController
           'users'=>NewMember::getAll(),
           ));
   }
+  
+  static public function handleNewUsers($app, $twig) {
+    if (!isset($_SESSION['username'])) {
+      $app->redirect('/');
+    }
+
+    $successmessage = "";
+    
+    if (isset($_POST['delete'])) {
+      $user = NewMember::get($_POST['delete']);
+      $user->delete();
+      $successmessage = "$user->firstname $user->lastname has been removed from the approval queue.";
+    }
+    
+    echo $twig->render('admin/newusers.html', 
+        array(
+          'currentuser'=>User::get($_SESSION['username']),
+          'success'=>$successmessage,
+          'users'=>NewMember::getAll(),
+          ));
+  }
 
 }
 ?>
