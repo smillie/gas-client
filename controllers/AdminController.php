@@ -237,6 +237,18 @@ class AdminController
             ));
     
   }
+  
+  static public function editGroup($app, $twig, $name) {
+      if (!isset($_SESSION['username'])) {
+        $app->redirect('/');
+      }
+
+      echo $twig->render('admin/editgroup.html', 
+          array(
+            'currentuser'=>User::get($_SESSION['username']),
+            'group'=>Group::get($name),
+            ));
+  }
 
 }
 ?>

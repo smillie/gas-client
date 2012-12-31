@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Groups{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% include 'sidebar.html' %}
+    <div class="span5">
+    {% if error %}
+       <div class="alert alert-error">
+         <button type="button" class="close" data-dismiss="alert">&times;</button>
+         <strong>Error:</strong> {{ error }}
+       </div>
+     {% endif %}
+     {% if success %}
+     <div class="alert alert-success">
+         {{ success }}
+     </div>
+     {% endif %}
+
+    <legend>Edit Group - {{ group.name }}</legend>
+    <table class="table">
+        <thead>
+            <th></th>
+            <th>Member</th>
+        </thead>
+        <tbody>
+          <form action="/admin/groups/{{ group.name }}" method="post" id="form">
+            {% for member in group.members %}
+                <tr>
+                <td>
+                  <!-- <a href="editgroup.php?remove=<?php echo $member?>&group=<?php echo $gname ?>" class="btn btn-mini btn-danger">Remove</a> -->
+                  <button type="submit" class="btn btn-mini btn-danger" value="{{ member }}">Remove</button>
+</td>
+                    <td><a href="/admin/edit/{{ member }}">{{ member }}</a></td>
+                </tr>
+            {% endfor %}
+            </form>
+        </tbody>
+    </table>
+    <form class="well form-inline" action="/admin/groups/{{ group.name }}" method="post" id="form">
+        <input type="text" class="input-xlarge required" placeholder="Username" name="newuser">
+        <button type="submit" class="btn">Add Member</button>
+    </form>
+
+    </div>
+{% endblock %}
