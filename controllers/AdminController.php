@@ -224,6 +224,32 @@ class AdminController
             ));
   }
   
+  static public function handleEditGroup($app, $twig, $name) {
+      self::requireAdmin($app);
+      
+      $group = Group::get($name);
+      $successmessage = "";
+      $errormessage = "";
+  
+      if (isset($_POST['delete'])) {
+        $group->delete();
+        $app->redirect("/admin/groups");
+      }
+      
+      if (isset($_POST['addmember'])) {
+        $group->addUser($_POST['newuser']);
+        $successmessage = "User ".$_POST['newuser']." has been added.";
+      }
+      
+      echo $twig->render('admin/editgroup.html', 
+          array(
+            'currentuser'=>User::get($_SESSION['username']),
+            'group'=>Group::get($name),
+            'success'=>$successmessage,
+            'error'=>$errormessage,
+            ));
+  }
+  
   static private function requireAdmin($app) {
     if (!isset($_SESSION['username'])) {
       $app->redirect('/');

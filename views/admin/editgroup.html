@@ -31,7 +31,7 @@
             {% for member in group.members %}
                 <tr>
                 <td>
-                  <button type="submit" class="btn btn-mini btn-danger" value="{{ member }}">Remove</button>
+                  <button type="submit" class="btn btn-mini btn-danger" value="{{ member }}" name="removemember">Remove</button>
 </td>
                     <td><a href="/admin/edit/{{ member }}">{{ member }}</a></td>
                 </tr>
@@ -42,7 +42,7 @@
     {% endif %}
     <form class="well form-inline" action="/admin/groups/{{ group.name }}" method="post" id="form">
         <input type="text" class="input-xlarge required" placeholder="Username" name="newuser">
-        <button type="submit" class="btn">Add Member</button>
+        <button type="submit" class="btn" name="addmember">Add Member</button>
     </form>
 
     </div>

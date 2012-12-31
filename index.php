@@ -58,7 +58,6 @@
   
   
   //Admin routes
-  //TODO restrict to gsag members...
   //TODO CSV export?
   $app->get('/admin/search', function() use ($app, $twig) {
     AdminController::handleSearch($app, $twig);

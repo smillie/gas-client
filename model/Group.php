@@ -119,11 +119,39 @@ class Group implements Persistable
   }
   
   public function addUser($username){
+    global $conf;
+       
+    $user = $_SESSION['username'];
+    $password = $_SESSION['password'];
+    $curl = new Curl;
     
+    $body["user"] = $username;
+
+    $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/groups/".$this->name."/adduser";
+    $response = $curl->post($url, json_encode($body));
+
+    if ($response->headers['Status'] != "200 OK") {
+      return false;
+    } else {
+      return true;
+    }
   }
   
   public function removeUser($username) {
-    
+    global $conf;
+       
+    $user = $_SESSION['username'];
+    $password = $_SESSION['password'];
+    $curl = new Curl;
+
+    $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/groups/deleteuser";
+    $response = $curl->post($url, json_encode($username));
+
+    if ($response->headers['Status'] != "200 OK") {
+      return false;
+    } else {
+      return true;
+    }
   }
   
 }
