@@ -16,7 +16,6 @@
   $loader = new Twig_Loader_Filesystem('views');
   $twig = new Twig_Environment($loader, array(
       'cache' => 'views/cache',
-      'debug' => true,
   ));
   $twig->addFilter('md5', new Twig_Filter_Function('md5'));
 
