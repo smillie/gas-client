@@ -143,9 +143,11 @@ class Group implements Persistable
     $user = $_SESSION['username'];
     $password = $_SESSION['password'];
     $curl = new Curl;
+    
+    $body["user"] = $username;
 
-    $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/groups/deleteuser";
-    $response = $curl->post($url, json_encode($username));
+    $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/groups/".$this->name."/deleteuser";
+    $response = $curl->post($url, json_encode($body));
 
     if ($response->headers['Status'] != "200 OK") {
       return false;

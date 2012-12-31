@@ -238,7 +238,12 @@ class AdminController
       
       if (isset($_POST['addmember'])) {
         $group->addUser($_POST['newuser']);
-        $successmessage = "User ".$_POST['newuser']." has been added.";
+        $successmessage = "User '".$_POST['newuser']."' has been added.";
+      }
+      
+      if (isset($_POST['removemember'])) {
+        $group->removeUser($_POST['removemember']);
+        $successmessage = "User '".$_POST['removemember']."' has been removed.";
       }
       
       echo $twig->render('admin/editgroup.html', 
