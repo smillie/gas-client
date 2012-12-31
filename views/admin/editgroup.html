@@ -28,7 +28,6 @@
             {% for member in group.members %}
                 <tr>
                 <td>
-                  <!-- <a href="editgroup.php?remove=<?php echo $member?>&group=<?php echo $gname ?>" class="btn btn-mini btn-danger">Remove</a> -->
                   <button type="submit" class="btn btn-mini btn-danger" value="{{ member }}">Remove</button>
 </td>
                     <td><a href="/admin/edit/{{ member }}">{{ member }}</a></td>
