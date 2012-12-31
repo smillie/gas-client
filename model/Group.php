@@ -63,18 +63,66 @@ class Group implements Persistable
   }
   
   public function delete() {
+    global $conf;
     
+    $user = $_SESSION['username'];
+    $password = $_SESSION['password'];
+    $curl = new Curl;
+    
+    $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/groups/" . $this->name;
+    $response = $curl->delete($url, $vars = array());
+    
+    if ($response->headers['Status'] != "200 OK") {
+      return false;
+    } else {
+      return json_decode($response, true);
+    }
   }
   
   public function save() {
+    global $conf;
+    
+    if (self::get($this->name) == null) {
+      //create new group (POST)    
+      $details = get_object_vars($this);
+      
+      $user = $_SESSION['username'];
+      $password = $_SESSION['password'];
+      $curl = new Curl;
+
+      $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/groups";
+      $response = $curl->post($url, json_encode($details));
+
+      if ($response->headers['Status'] != "200 OK") {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      //update existing group (PUT)
+        $details = get_object_vars($this);
+        
+        $user = $_SESSION['username'];
+        $password = $_SESSION['password'];
+        $curl = new Curl;
+
+        $url = $conf['api_protocol'] . "://$user:$password@".$conf['api_url'] ."/groups/" . $this->name;
+        $response = $curl->put($url, json_encode($details));
+
+        if ($response->headers['Status'] != "200 OK") {
+          return false;
+        } else {
+          return true;
+        }
+      
+    }
+  }
+  
+  public function addUser(){
     
   }
   
-  public function addUser($username){
-    
-  }
-  
-  public function removeUser($username) {
+  public function removeUser() {
     
   }
   

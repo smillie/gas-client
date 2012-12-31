@@ -92,6 +92,15 @@
   $app->get('/admin/groups', function() use ($app, $twig) {
     AdminController::listGroups($app, $twig);
   });
+  $app->post('/admin/groups', function() use ($app, $twig) {
+    AdminController::handleAddGroup($app, $twig);
+  });
+  $app->get('/admin/groups/:name', function($name) use ($app, $twig) {
+    AdminController::editGroup($app, $twig, $name);
+  });
+  $app->post('/admin/groups/:name', function($name) use ($app, $twig) {
+    AdminController::handleEditGroup($app, $twig, $name);
+  });
   
   $app->run();
   

@@ -209,6 +209,34 @@ class AdminController
           'groups'=>Group::getAll(),
           ));
   }
+  
+  static public function handleAddGroup($app, $twig) {
+    
+      if (!isset($_SESSION['username'])) {
+        $app->redirect('/');
+      }
+      
+      $successmessage = "";
+      $errormessage = "";
+      
+      if (Group::get($_POST['newgroup']) == NULL) {
+        $group = new Group;
+        $group->name = $_POST['newgroup'];
+        $group->save();
+        $successmessage = "Group '".$group->name."' was successfully added.";
+      } else {
+        $errormessage = "Group '".$_POST['newgroup']."' already exists.";
+      }
+
+      echo $twig->render('admin/listgroups.html', 
+          array(
+            'currentuser'=>User::get($_SESSION['username']),
+            'groups'=>Group::getAll(),
+            'success'=>$successmessage,
+            'error'=>$errormessage,
+            ));
+    
+  }
 
 }
 ?>

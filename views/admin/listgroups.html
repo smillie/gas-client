@@ -30,7 +30,7 @@
 
         {% for group in groups %}
             <tr>
-                <td><a href="/admin/group/{{ group.name }}" class="btn btn-mini">Edit</a></td>
+                <td><a href="/admin/groups/{{ group.name }}" class="btn btn-mini">Edit</a></td>
                 <td>{{ group.name }}</td>
                 <td>{{ group.gidnumber }}</td>
                 <td>{{ group.members|length }}</td>
@@ -44,12 +44,13 @@
                         <p>This will immediately delete the {{ group.name }} group from the LDAP directory.</p>
                         <p><strong>Note:</strong> Users in the group will not be deleted.</p>
                     </div>
+                    <form action="/admin/groups/{{ group.name }}" method="POST">
                     <div class="modal-footer">
-                      <form action="/admin/groups/{{ group.name }}" method="POST">
+                      
                         <a href="#" class="btn" data-dismiss="modal" >Cancel</a>
                         <button type="submit" class="btn btn-danger" value="{{ user.id }}" name="delete">Confirm Delete</button>
-                        </form>
                     </div>
+                  </form>
                 </div>
 
                 <td><a data-toggle="modal" href="#deleteModal{{ group.name }}" class="btn btn-mini btn-danger">Delete</a></td>
@@ -57,7 +58,7 @@
         {% endfor %}
         </tbody>
       </table>    
-      <form class="well form-inline" action="groups.php" method="post" id="form">
+      <form class="well form-inline" action="/admin/groups" method="post" id="form">
           <input type="text" class="input-xlarge required" placeholder="Group Name" name="newgroup">
           <button type="submit" class="btn">Add Group</button>
       </form>
