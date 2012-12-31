@@ -209,6 +209,10 @@ class User implements Persistable
       
     }
   }
+  
+  public function isAdmin() {
+    return in_array("gsag", $this->groups);
+  }
 
   
 }

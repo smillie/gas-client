@@ -7,9 +7,7 @@ class AdminController
 {
 
   static public function addUser($app, $twig) {
-    if (!isset($_SESSION['username'])) {
-      $app->redirect('/');
-    }
+    self::requireAdmin($app);
     
     echo $twig->render('admin/adduser.html', 
         array(
@@ -18,9 +16,7 @@ class AdminController
   }
 
   static public function handleAddUser($app, $twig) {
-    if (!isset($_SESSION['username'])) {
-      $app->redirect('/');
-    }
+    self::requireAdmin($app);
     
     if (User::get($_POST['username']) == NULL) {
     
@@ -45,9 +41,7 @@ class AdminController
   }
 
   static public function listUsers($app, $twig) {
-    if (!isset($_SESSION['username'])) {
-      $app->redirect('/');
-    }
+    self::requireAdmin($app);
     
     echo $twig->render('admin/listusers.html', 
         array(
@@ -57,9 +51,7 @@ class AdminController
   }
   
   static public function displaySearch($app, $twig) {
-    if (!isset($_SESSION['username'])) {
-      $app->redirect('/');
-    }
+    self::requireAdmin($app);
     
     echo $twig->render('admin/search.html', 
         array(
@@ -68,9 +60,7 @@ class AdminController
   }
   
   static public function handleSearch($app, $twig) {
-    if (!isset($_SESSION['username'])) {
-      $app->redirect('/');
-    }
+    self::requireAdmin($app);
     
     echo $twig->render('admin/listusers.html', 
         array(
@@ -80,9 +70,7 @@ class AdminController
   }
   
   static public function editUser($app, $twig, $username) {
-    if (!isset($_SESSION['username'])) {
-      $app->redirect('/');
-    }
+    self::requireAdmin($app);
     
     if (User::get($username) == null) {
       $app->redirect('/admin/listusers');
@@ -96,10 +84,7 @@ class AdminController
   }
      
   static public function handleEditUser($app, $twig, $username) {
-    
-    if (!isset($_SESSION['username'])) {
-      $app->redirect('/');
-    }
+    self::requireAdmin($app);
     
     $user = User::get($username);
     $successmessage = "";
@@ -152,9 +137,7 @@ class AdminController
   }
   
   static public function displayNewUsers($app, $twig) {
-    if (!isset($_SESSION['username'])) {
-      $app->redirect('/');
-    }
+    self::requireAdmin($app);
     
     echo $twig->render('admin/newusers.html', 
         array(
@@ -164,9 +147,7 @@ class AdminController
   }
   
   static public function handleNewUsers($app, $twig) {
-    if (!isset($_SESSION['username'])) {
-      $app->redirect('/');
-    }
+    self::requireAdmin($app);
 
     $successmessage = "";
     $errormessage = "";
@@ -199,9 +180,7 @@ class AdminController
   }
 
   static public function listGroups($app, $twig) {
-    if (!isset($_SESSION['username'])) {
-      $app->redirect('/');
-    }
+    self::requireAdmin($app);
     
     echo $twig->render('admin/listgroups.html', 
         array(
@@ -211,10 +190,7 @@ class AdminController
   }
   
   static public function handleAddGroup($app, $twig) {
-    
-      if (!isset($_SESSION['username'])) {
-        $app->redirect('/');
-      }
+      self::requireAdmin($app);
       
       $successmessage = "";
       $errormessage = "";
@@ -239,15 +215,24 @@ class AdminController
   }
   
   static public function editGroup($app, $twig, $name) {
-      if (!isset($_SESSION['username'])) {
-        $app->redirect('/');
-      }
+      self::requireAdmin($app);
 
       echo $twig->render('admin/editgroup.html', 
           array(
             'currentuser'=>User::get($_SESSION['username']),
             'group'=>Group::get($name),
             ));
+  }
+  
+  static private function requireAdmin($app) {
+    if (!isset($_SESSION['username'])) {
+      $app->redirect('/');
+    } else {
+      $currentuser = User::get($_SESSION['username']);
+      if (!$currentuser->isAdmin()) {
+        $app->redirect('/');
+      }
+    }
   }
 
 }

@@ -118,11 +118,11 @@ class Group implements Persistable
     }
   }
   
-  public function addUser(){
+  public function addUser($username){
     
   }
   
-  public function removeUser() {
+  public function removeUser($username) {
     
   }
   

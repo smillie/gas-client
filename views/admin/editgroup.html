@@ -18,6 +18,9 @@
      {% endif %}
 
     <legend>Edit Group - {{ group.name }}</legend>
+    {% if group.members|length == 0%}
+    <p>This group has no members.</p>
+    {% else %}
     <table class="table">
         <thead>
             <th></th>
@@ -36,6 +39,7 @@
             </form>
         </tbody>
     </table>
+    {% endif %}
     <form class="well form-inline" action="/admin/groups/{{ group.name }}" method="post" id="form">
         <input type="text" class="input-xlarge required" placeholder="Username" name="newuser">
         <button type="submit" class="btn">Add Member</button>
