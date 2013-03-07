@@ -26,6 +26,7 @@ class User implements Persistable
   public $gidnumber;
   public $sshkeys;
   public $groups;
+  public $isAdmin;
   
   static public function init($details) {
     $user = new User;
@@ -211,7 +212,7 @@ class User implements Persistable
   }
   
   public function isAdmin() {
-    return in_array("gsag", $this->groups);
+    return $this->isAdmin;
   }
 
   
