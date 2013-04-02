@@ -10,6 +10,7 @@
   require_once 'controllers/DashboardController.php';
   require_once 'controllers/LoginController.php';
   require_once 'controllers/AdminController.php';
+  require_once 'controllers/ElectionsController.php';
   
   $app = new \Slim\Slim();
   
@@ -98,6 +99,14 @@
   });
   $app->post('/admin/groups/:name', function($name) use ($app, $twig) {
     AdminController::handleEditGroup($app, $twig, $name);
+  });
+  
+  
+  $app->get('/elections/nominate/', function() use ($app, $twig) {
+    ElectionsController::nominateForm($app, $twig);
+  });
+  $app->post('/elections/nominate/', function() use ($app, $twig) {
+    ElectionsController::nominateForm($app, $twig);
   });
   
   $app->run();
