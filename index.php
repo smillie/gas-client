@@ -106,7 +106,7 @@
     ElectionsController::nominateForm($app, $twig);
   });
   $app->post('/elections/nominate/', function() use ($app, $twig) {
-    ElectionsController::nominateForm($app, $twig);
+    ElectionsController::handleNomination($app, $twig);
   });
   
   $app->run();

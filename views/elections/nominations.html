@@ -21,7 +21,9 @@
                 {% for office in offices %}
                 <div class="control-group">
                     <h3>{{ office.name }}</h3>
-                    <input type="text" name="{{ office.name }}" id="{{ office.name }}" class="input-xlarge" >
+                    
+                    <input type="text" name="{{ office.name }}" id="{{ office.name }}" class="input-xlarge" data-provide="typeahead" data-items="4" data-source="{{eligibleMembers|json_encode()}}" autocomplete="off">
+                    
                     <span class="help-block">{{ office.description }}</span>
                 </div>
                 {% endfor %}
