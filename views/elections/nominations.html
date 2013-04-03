@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Election Nominations{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      {% include 'sidebar.html' %}
+    <div class="span10">
+      <div class="row">
+        <div class="span5">
+          <form class="form-horizontal" action="/elections/nominate" method="post" id="form">
+            <fieldset>
+              <legend>Nominations for Office</legend>
+              <div class="control-group">
+                {% if success %}
+                <div class="alert alert-success">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ success }}
+                </div>
+                {% endif %}
+                
+                {% for office in offices %}
+                <div class="control-group">
+                    <h3>{{ office.name }}</h3>
+                    
+                    <input type="text" name="{{ office.name }}" id="{{ office.name }}" class="input-xlarge" data-provide="typeahead" data-items="4" data-source="{{eligibleMembers|json_encode()}}" autocomplete="off">
+                    
+                    <span class="help-block">{{ office.description }}</span>
+                </div>
+                {% endfor %}
+                
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Submit Nominations</button>
+              </div>
+            </fieldset>
+          </form>
+        </div><!--/span-->
+
+				<div class="span4 offset1">
+					<h3>Rules &amp; Notes</h3>
+					<p>
+                        <ul>
+                            <li>Both you and the seconder must be fully paid members of GeekSoc.</li>
+                            <li>The person you are nominating must be both a fully paid GeekSoc member, and a student at Strathclyde University not graduating in 2013. </li>
+                            <li>Finally, you must not nominate or second a nomination for yourself.</li> </p>
+                            <p><li>Nominations will be open until <strong>11.50am on Tuesday the 16th of April</strong>, and nominations will be announced on the Thursday at the AGM.</li>
+                        </ul></p>
+					
+				</div>
+      </div><!--/row-->
+    </div><!--/span-->
+{% endblock %}
