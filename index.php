@@ -19,6 +19,7 @@
       'cache' => 'views/cache',
   ));
   $twig->addFilter('md5', new Twig_Filter_Function('md5'));
+  $twig->addGlobal('config', $conf);
 
   $app->get('/', function() use ($app, $twig) {
     LoginController::display($app, $twig);
