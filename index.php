@@ -7,6 +7,7 @@
   require_once 'model/User.php';
   require_once 'model/Group.php';
   require_once 'model/NewMember.php';
+  require_once 'model/AuditLog.php';
   require_once 'controllers/DashboardController.php';
   require_once 'controllers/LoginController.php';
   require_once 'controllers/AdminController.php';
@@ -109,6 +110,10 @@
   $app->post('/elections/nominate/', function() use ($app, $twig) {
     ElectionsController::handleNomination($app, $twig);
   });
+
+  $app->get('/admin/audit', function() use ($app, $twig) {
+    AdminController::displayAuditLog($app, $twig);
+  }); 
   
   $app->run();
   

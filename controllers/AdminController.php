@@ -254,6 +254,17 @@ class AdminController
             'error'=>$errormessage,
             ));
   }
+
+  static public function displayAuditLog($app, $twig) {
+      self::requireAdmin($app);
+
+      echo $twig->render('admin/listAuditLog.html', 
+    array(
+      'currentuser'=>User::get($_SESSION['username']),
+      'log'=>AuditLog::getAll(),
+      ));
+
+  }
   
   static private function requireAdmin($app) {
     if (!isset($_SESSION['username'])) {
