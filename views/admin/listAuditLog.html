@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Audit Log{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% include 'sidebar.html' %}
+    <div class="span6">
+      <table class="table ">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>User</th>
+            <th>Message</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for message in log %}
+            <tr>
+                <td>{{ message.timestamp }}</td>
+                <td><a href="/admin/edit/{{ message.user }}">{{ message.user }}</a></td>
+                <td>{{ message.message }}</td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+      </table>    
+    </div>
+{% endblock %}
