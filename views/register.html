@@ -8,6 +8,12 @@
           <form class="form-horizontal well" id="form" action="/register" method="post">
             <fieldset>
               <legend>Join GeekSoc</legend>
+                {% if error %}
+                    <div class="alert alert-error">
+                      <strong>Error:</strong> {{ error }}
+                    </div>
+                {% endif %}
+
                   <div class="control-group">
                     <label class="control-label" for="firstname">First Name</label>
                     <div class="controls">

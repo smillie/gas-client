@@ -26,12 +26,20 @@ class LoginController
     $newmember->studentnumber = $_POST['studentnumber'];
     $newmember->email = $_POST['email'];
     
-    $newmember->save();
+    if(!$newmember->save()){
+	$error = "User error";
+
+	echo $twig->render('register.html',
+		array(
+		 'error'=>$error,
+		));
+    }else{
        
     echo $twig->render('postRegister.html', 
         array(
           'name'=>$_POST['firstname'],
         ));
+    }
   }
   
   static public function logout($app) {   
