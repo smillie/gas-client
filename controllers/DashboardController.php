@@ -22,7 +22,8 @@ class DashboardController
       $app->redirect('/');
     }
     
-    $user = User::get($_SESSION['username']);
+    $user = new User();
+    $user -> username = $_SESSION['username'];
     $user->displayname = $_POST["displayname"];
     $user->studentnumber = $_POST["studentnumber"];
     $user->email = $_POST["email"];
@@ -111,7 +112,11 @@ class DashboardController
       $app->redirect('/');
     }
     
-    $user = User::get($_SESSION['username']);
+    $userAllDetails = User::get($_SESSION['username']);
+    
+    $user = new User();
+    $user->username = $_SESSION['username'];
+    $user->sshkeys = $userAllDetails->sshkeys;
     
     if (isset($_POST['delete'])) {
         $removeindex = $_POST['delete'];
