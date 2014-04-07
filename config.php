@@ -5,6 +5,6 @@
   $conf['api_protocol'] = 'http';
   $conf['api_url'] = 'api.gas.geeksoc.org';
   
-  $conf['elections'] = FALSE;
+  $conf['elections'] = TRUE;
 
 ?>
