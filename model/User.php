@@ -42,12 +42,13 @@ class User implements Persistable
   static public function authenticate($username, $password) {
     global $conf;
     
-    $pass["password"] = $password;
+    $request["username"] = $username;
+    $request["password"] = $password;
     
     $curl = new Curl;
     
-    $url = $conf['api_protocol'] . "://".$conf['api_url'] ."/authenticate/$username";
-    $response = $curl->post($url, json_encode($pass));
+    $url = $conf['api_protocol'] . "://".$conf['api_url'] ."/authenticate";
+    $response = $curl->post($url, json_encode($request));
     $result = json_decode($response, true);
     
     if ($username == "" || $password == "" || $response->headers['Status'] != "200 OK") {
